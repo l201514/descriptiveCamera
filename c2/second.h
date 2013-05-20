@@ -10,4 +10,8 @@
 
 @interface second : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIWebView *descriptions;
+
+@property (strong, nonatomic) IBOutlet UIWebView *image;
+
 @end

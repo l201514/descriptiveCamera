@@ -7,8 +7,11 @@
 //
 
 #import "Cell.h"
+#import "CellView.h"
 
 @implementation Cell
+@synthesize thumbnailImageView = _thumbnailImageView;
+@synthesize cross;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

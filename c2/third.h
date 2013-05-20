@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface third : UIViewController
+@interface third : UIViewController <UITableViewDelegate, UITableViewDataSource>{
+}
+@property (nonatomic) NSMutableArray *desArray;
+@property (nonatomic) NSMutableArray *checkArray;
 
 @end

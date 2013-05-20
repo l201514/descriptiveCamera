@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface Cell : UITableViewCell
+@property (nonatomic, weak) IBOutlet UIImageView *thumbnailImageView;
 
+@property (strong, nonatomic) IBOutlet UIImageView *cross;
 @end

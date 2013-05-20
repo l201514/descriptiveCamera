@@ -11,15 +11,53 @@
 #import "ViewController.h"
 
 @implementation AppDelegate
+@synthesize token;
+@synthesize navController;
+@synthesize imageArray,imageNameArray;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+	// Let the device know we want to receive push notifications
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
-    self.window.rootViewController = self.viewController;
+    
+    navController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    navController.navigationBar.tintColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1];
+    
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
+    
+    imageArray = [[NSMutableArray alloc] init];
     return YES;
+}
+
+-(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [[[userInfo objectForKey:@"aps"] objectForKey: @"badgecount"] intValue];
+}
+
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+    token = [NSString stringWithFormat:@"%@",deviceToken];
+    
+    //_firstString = [NSString stringWithFormat:@"%@",deviceToken];
+    
+    //token = [[_firstString stringByReplacingOccurancesOfString:@" " withString:@"_"] stringByReplacingOccurancesOfString:@" " withString:@"_"];
+    
+	NSLog(@"My token is: %@", token);
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
